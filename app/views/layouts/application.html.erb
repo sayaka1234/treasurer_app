@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Treasurer_app</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'https://kit.fontawesome.com/3b011d839e.js' %>
+    <%= javascript_include_tag 'https://code.jquery.com/jquery-1.12.3.min.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery-sidebar/3.3.2/jquery.sidebar.min.js' %>
+  </head>
+
+  <body>
+    <div class="container">
+      <% if flash[:notice] %>
+        <p class="text-success"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:alert] %>
+        <p class="text-danger"><%= flash[:alert] %></p>
+      <% end %>
+      
+      <%= render 'layouts/sidebar' %>
+      
+      <%= yield %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<h2>会計管理アプリ</h2>
+<div class="row width">
+  <div class="col-md-12">
+    <table class="colums">
+      <% if @histories.present? %>
+        <thead class="thead-light">
+          <tr>
+            <th>タイトル</th>
+            <th>カテゴリー</th>
+            <th>金額</th>
+            <th>支払先</th>
+            <th>会計係</th>
+            <th>領収書受取日</th>
+            <th>返却日</th>
+            <th>内容</th>
+            <th>ステータス</th>
+            <th>処理内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @histories.each do |history| %>
+            <tr>
+              <td><%= link_to history.title, history_path(history) %></td>
+              <td><%= history.category %></td>
+              <td><%= history.price %></td>
+              <td><%= history.payee %></td>
+              <td><%= history.treasurer %></td>
+              <td><%= history.received_day.to_date %></td>
+              <td><%= history.return_day.to_date %></td>
+              <td><%= history.description %></td>
+              <td><%= history.status %></td>
+              <td>[ <%= link_to '編集',  edit_history_path(history) %> ] 
+              
+              [ <%= link_to '削除', history_path(history), method: :delete, data:{ confirm: '削除してよろしいですか?' } %> ]</td>
+            </tr>
+          <% end %>
+        </tbody>
+      <% else %>
+          <p>現在会計履歴はありません</p>
+      <% end %>
+    </table>
+  </div>
+</div>
+<style>
+  div.width {
+    width: 1000px;
+  }
+  
+  table.colums {
+    border-collapse: collapse;
+    border: 1px solid #dcdcdc;
+  }
+  
+  table.colums th{
+    border: 1px solid #dcdcdc;
+    background: #deb887;
+    font-size: 15px;
+    padding: 4px;
+  }
+ 
+  table.colums td{
+    border:1px solid #dcdcdc;
+    background:#ffffff;
+    font-size: 13px;
+  }
+  
+</style>

@@ -1,0 +1,33 @@
+<%= form_with model: @history, local: true do |f| %>
+  <div class="form-group">
+    <label>タイトル</label>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>支払先</label>
+    <%= f.text_field :payee, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>会計係</label>
+    <%= f.text_field :treasurer, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>領収書受取日</label>
+    <%= f.date_field :received_day, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>返金日</label>
+    <%= f.date_field :return_day, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>金額</label>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>内容</label>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="text-center">
+    <%= f.submit "保存", class: "btn btn-primary" %>
+  </div>
+<% end %>

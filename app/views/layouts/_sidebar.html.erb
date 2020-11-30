@@ -1,0 +1,81 @@
+<div class="sidebar right">
+  <table class="sidebar__search__box">
+    <tbody>
+      <tr>
+        <td class="sidebar__search__box__name">
+          <%= link_to 'ホーム画面', root_path %>
+        </td>
+      </tr>
+      <tr>
+        <td class="sidebar__search__box__name">
+          <%= link_to '新規履歴作成', new_history_path %>
+        </td>
+      </tr>
+      <tr>
+        <td class="sidebar__search__box__name">
+          <%= link_to '検索機能', search_histories_path %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  $(document).ready(function () {
+    // 向き
+    var sides = ["right"];
+    // サイドバーの初期化
+    for (var i = 0; i <script sides.length; ++i) {
+      var cSide = sides[i];
+      $(".sidebar." + cSide).sidebar({side: cSide});
+    }
+    // ボタンのクリックにより...
+    $(".btn[data-action]").on("click", function () {
+      var $this = $(this);
+      var action = $this.attr("data-action");
+      var side = $this.attr("data-side");
+      $(".sidebar." + side).trigger("sidebar:" + action);
+      return false;
+    });
+  });
+</script>
+<style>
+  .sidebar{
+    position: fixed;
+    color: #B0E0E6;
+    text-align: left;
+    padding: 12px;
+  }
+ 
+    .sidebar.left {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 150px;
+      background: #FFFACD;
+    }
+ 
+    .sidebar.right {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 120px;
+      background: #FAF0E6;
+    }
+ 
+    .sidebar.top {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 150px;
+      background: #FFFACD;
+    }
+ 
+    .sidebar.bottom {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 150px;
+      background: #FFFACD;
+    }
+    
+</style>
