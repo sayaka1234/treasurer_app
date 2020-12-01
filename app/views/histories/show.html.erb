@@ -15,9 +15,9 @@
     </div>
     <hr>
     
-    <div>
-      <h3>質問</h3>
-      <table class="table table-striped">
+    <h3>質問</h3>
+    <div class="row width">
+      <table class="colums">
         <% if @history.questions.any? %>
           <thead class="thead-light">
             <tr>
@@ -79,3 +79,27 @@
     </div>
   </div>
 </div>
+
+<style>
+  div.width {
+    width: 1000px;
+  }
+  
+  table.colums {
+    border-collapse: collapse;
+    border: 1px solid #dcdcdc;
+  }
+  
+  table.colums th{
+    border: 1px solid #dcdcdc;
+    background: #deb887;
+    font-size: 15px;
+    padding: 4px;
+  }
+ 
+  table.colums td{
+    border:1px solid #dcdcdc;
+    background:#ffffff;
+    font-size: 13px;
+  }
+</style>

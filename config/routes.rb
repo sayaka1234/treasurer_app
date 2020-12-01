@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   resources :histories do
     collection do
-      get :search
+      get 'search'
     end
     resources :questions
   end

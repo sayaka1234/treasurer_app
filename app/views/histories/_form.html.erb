@@ -1,7 +1,21 @@
+<script>
+$(function(){
+  <% if @history.status == 'income' %>
+    $('#return_day_area').hide();
+  <% else %>
+    $('#return_day_area').show();
+  <% end %>
+})
+</script>
+
 <%= form_with model: @history, local: true do |f| %>
   <div class="form-group">
     <label>タイトル</label>
     <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>収支ステータス</label>
+    <%= f.select(:status, {収入: 'income', 支出: 'outcome'}, {class: "form-control"}) %>
   </div>
   <div class="form-group">
     <label>支払先</label>
@@ -12,12 +26,12 @@
     <%= f.text_field :treasurer, class: "form-control" %>
   </div>
   <div class="form-group">
-    <label>領収書受取日</label>
-    <%= f.date_field :received_day, class: "form-control" %>
+    <label>受取日</label>
+    <%= f.date_select :received_day, use_month_numbers: true, start_year: 1970, end_year: Time.now.year, class: "form-control" %>
   </div>
-  <div class="form-group">
+  <div class="form-group" id="return_day_area">
     <label>返金日</label>
-    <%= f.date_field :return_day, class: "form-control" %>
+    <%= f.date_select :return_day, use_month_numbers: true, start_year: 1970, end_year: Time.now.year, prompt: "--",class: "form-control" %>
   </div>
   <div class="form-group">
     <label>金額</label>
@@ -27,7 +41,14 @@
     <label>内容</label>
     <%= f.text_area :description, class: "form-control" %>
   </div>
-  <div class="text-center">
+  <div class="form-group">
     <%= f.submit "保存", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<style>
+  div.form-group {
+    width: 900px;
+    text-align: center;
+  }
+</style>

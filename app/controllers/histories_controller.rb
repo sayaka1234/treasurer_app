@@ -3,10 +3,13 @@ class HistoriesController < ApplicationController
   
   def index
     @histories = History.all
+    @total_income = History.where(status: History.statuses[:income]).sum(:price)
+    @total_outcome = History.where(status: History.statuses[:outcome]).sum(:price)
+    @total_price = @total_income - @total_outcome
   end
   
   def search
-    @histories = History.search(params)
+    @histories = History.search(history_search_params)
   end
 
   def show
@@ -18,7 +21,7 @@ class HistoriesController < ApplicationController
   end
   
   def create
-    @history = History.new(history_params)
+    @history = History.new(history_create_params)
     if @history.save
       redirect_to root_path, notice: '登録に成功しました!'
     else
@@ -31,7 +34,7 @@ class HistoriesController < ApplicationController
   end
   
   def update
-    if @history.update(history_params)
+    if @history.update(history_create_params)
       redirect_to root_path, notice: '編集しました!'
     else
       flash[:alert] = '編集に失敗しました'
@@ -49,7 +52,13 @@ class HistoriesController < ApplicationController
       @history = History.find(params[:id])
     end
   
-    def history_params
-      params.require(:history).permit(:payee, :treasurer, :content, :received_day, :return_day, :title, :description, :price, :category, :status)
+    def history_search_params
+      params.permit(:payee, :treasurer, :title, :description, :price,
+                             :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
     end
+    
+    def history_create_params
+      params.require(:history).permit(:payee, :treasurer, :received_day, :return_day, :title, :description, :price, :category, :status)
+    end
+    
 end

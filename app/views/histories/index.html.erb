@@ -6,7 +6,7 @@
         <thead class="thead-light">
           <tr>
             <th>タイトル</th>
-            <th>カテゴリー</th>
+            <th>カテゴリ</th>
             <th>金額</th>
             <th>支払先</th>
             <th>会計係</th>
@@ -25,15 +25,38 @@
               <td><%= history.price %></td>
               <td><%= history.payee %></td>
               <td><%= history.treasurer %></td>
-              <td><%= history.received_day.to_date %></td>
-              <td><%= history.return_day.to_date %></td>
+              <td><%= history.received_day&.to_date %></td>
+              <td><%= history.return_day&.to_date %></td>
               <td><%= history.description %></td>
               <td><%= history.status %></td>
               <td>[ <%= link_to '編集',  edit_history_path(history) %> ] 
-              
-              [ <%= link_to '削除', history_path(history), method: :delete, data:{ confirm: '削除してよろしいですか?' } %> ]</td>
+                  [ <%= link_to '削除', history_path(history), method: :delete, data:{ confirm: '削除してよろしいですか?' } %> ]
+              </td>
             </tr>
           <% end %>
+        </tbody>
+      <% else %>
+          <p>現在会計履歴はありません</p>
+      <% end %>
+    </table>
+  </div>
+  <h3>収支集計</h3>
+  <div class="col-md-12">
+    <table class="colums">
+      <% if @histories.present? %>
+        <thead class="thead-light">
+          <tr>
+            <th>合計金額</th>
+            <th>収入合計</th>
+            <th>支出合計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= "#{@total_price}円" %></td>
+            <td><%= "#{@total_income}円" %></td>
+            <td><%= "#{@total_outcome}円" %></td>
+          </tr>
         </tbody>
       <% else %>
           <p>現在会計履歴はありません</p>

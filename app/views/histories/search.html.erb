@@ -1,7 +1,47 @@
-<h2>会計管理アプリ</h2>
+<h2>会計履歴検索</h2>
 <div class="row width">
   <div class="col-md-12">
-    <table class="table table-striped columns">
+    <%= form_with(scope: :search, url: search_histories_path, method: :get, local: true) do |f| %>
+      <div class="form-group">
+        <label>タイトル</label>
+        <%= f.text_field :title, value: params[:title], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label>カテゴリ</label>
+        <%= f.text_field :category, value: params[:category], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label>収支ステータス</label>
+        <%= f.select :status, options_for_select([['収入', 0],['支出', 1]], params[:status]), {:prompt => "--"}, {:class => 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <label>金額</label>
+        <%= f.text_field :price, value: params[:price],  class: 'form-control' %>円
+      </div>
+      <div class="form-group">
+        <label>支払先</label>
+        <%= f.text_field :payee, value: params[:payee], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label>会計係</label>
+        <%= f.text_field :treasurer, value: params[:treasurer], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label>対象受取期間</label>
+        <%= f.date_field :start_received_day, value: params[:start_received_day], use_month_numbers: true, prompt: "--", class: 'form-control' %> ~
+        <%= f.date_field :finish_received_day, value: params[:finish_received_day], use_month_numbers: true, prompt: "--", class: 'form-control' %>
+      </div>
+      <div class="form-group" id="return_day_area">
+        <label>対象返却期間</label>
+        <%= f.date_field :start_return_day, value: params[:start_return_day], use_month_numbers: true, prompt: "--", class: 'form-control' %> ~
+        <%= f.date_field :finish_return_day, value: params[:finish_return_day], use_month_numbers: true, prompt: "--", class: 'form-control' %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "検索", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    
+    <table class="colums">
       <% if @histories.present? %>
         <thead class="thead-light">
           <tr>
@@ -20,43 +60,42 @@
         <tbody>
           <% @histories.each do |history| %>
             <tr>
-              <td><%= link_to history.title, history_path(history) %></td>
+              <td><%= history.title %></td>
               <td><%= history.category %></td>
               <td><%= history.price %></td>
               <td><%= history.payee %></td>
               <td><%= history.treasurer %></td>
-              <td><%= history.received_day %></td>
-              <td><%= history.return_day %></td>
+              <td><%= history.received_day&.to_date %></td>
+              <td><%= history.return_day&.to_date %></td>
               <td><%= history.description %></td>
               <td><%= history.status %></td>
               <td>[ <%= link_to '編集',  edit_history_path(history) %> ] 
-              
-              [ <%= link_to '削除', history_path(history), method: :delete, data:{ confirm: '削除してよろしいですか?' } %> ]</td>
+                  [ <%= link_to '削除', history_path(history), method: :delete, data:{ confirm: '削除してよろしいですか?' } %> ]
+              </td>
             </tr>
           <% end %>
         </tbody>
       <% else %>
-          <p>現在会計履歴はありません</p>
+          <p>検索結果がありません</p>
       <% end %>
     </table>
-    <div>
-      <%= link_to '新規作成', new_history_path %>
-    </div>
   </div>
 </div>
 <style>
   div.width {
-    width: 900;
+    width: 1000px;
   }
   
   table.colums {
-    border-collapse:collapse;
+    order-collapse: collapse;
+    border: 1px solid #dcdcdc;
   }
   
   table.colums th{
     border: 1px solid #dcdcdc;
     background: #deb887;
-    font-size: 13px;
+    font-size: 15px;
+    padding: 4px;
   }
  
   table.colums td{
