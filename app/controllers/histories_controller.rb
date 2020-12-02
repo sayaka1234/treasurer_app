@@ -9,7 +9,7 @@ class HistoriesController < ApplicationController
   end
   
   def search
-    @histories = History.search(history_search_params)
+    @histories = params[:search].nil? ? History.search(history_params) : History.search(history_search_params)
   end
 
   def show
@@ -51,14 +51,17 @@ class HistoriesController < ApplicationController
     def set_history
       @history = History.find(params[:id])
     end
+    
+    def history_params
+      params.permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
+    end
   
     def history_search_params
-      params.permit(:payee, :treasurer, :title, :description, :price,
-                             :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
+      params.require(:search).permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
     end
     
     def history_create_params
       params.require(:history).permit(:payee, :treasurer, :received_day, :return_day, :title, :description, :price, :category, :status)
     end
-    
+
 end
