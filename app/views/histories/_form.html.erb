@@ -31,11 +31,17 @@ $(function(){
   </div>
   <div class="form-group" id="return_day_area">
     <label>返金日</label>
-    <%= f.date_select :return_day, use_month_numbers: true, start_year: 1970, end_year: Time.now.year, prompt: "--",class: "form-control" %>
+    <%= f.date_select :return_day, use_month_numbers: true, start_year: 1970, end_year: Time.now.year, prompt: "--", class: "form-control" %>
   </div>
   <div class="form-group">
     <label>金額</label>
     <%= f.text_field :price, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>画像</label>
+    <%= f.file_field :image, class: "form-control" %>
+    <%= image_tag @history.image.path.to_s %>
+    <%= f.hidden_field :image_cache %>
   </div>
   <div class="form-group">
     <label>内容</label>

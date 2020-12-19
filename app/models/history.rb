@@ -1,9 +1,12 @@
 class History < ApplicationRecord
     has_many :questions, dependent: :destroy
+    
+    mount_uploader :image, ImageUploader
   
     validates :treasurer, presence: true
     validates :payee, presence: true
     validates :title, presence: true
+    # validates :image, :file_size => {:maximum => 2.megabytes}
 
     enum status: {income: 0, outcome: 1}
     

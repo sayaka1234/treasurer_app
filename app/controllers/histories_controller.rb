@@ -53,15 +53,15 @@ class HistoriesController < ApplicationController
     end
     
     def history_params
-      params.permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
+      params.permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day, :image)
     end
   
     def history_search_params
-      params.require(:search).permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day)
+      params.require(:search).permit(:payee, :treasurer, :title, :description, :price, :category, :status, :start_received_day, :finish_received_day, :start_return_day, :finish_return_day, :image)
     end
     
     def history_create_params
-      params.require(:history).permit(:payee, :treasurer, :received_day, :return_day, :title, :description, :price, :category, :status)
+      params.require(:history).permit(:payee, :treasurer, :received_day, :return_day, :title, :description, :price, :category, :status, :image)
     end
 
 end

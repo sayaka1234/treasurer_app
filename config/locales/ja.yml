@@ -1,0 +1,6 @@
+ja:
+  enum:
+    history:
+      status:
+        income: 収入
+        outcome: 支出

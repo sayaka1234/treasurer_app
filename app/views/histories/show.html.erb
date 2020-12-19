@@ -2,7 +2,14 @@
   <div class="col-md-12">
     <h2><%= @history.title %></h2>
     <div>
-      金額: <%= @history.price %>
+      金額: <%= @history.price %>円
+    </div>
+    <div>
+      <% if @history.image? %>
+        画像：<%= image_tag @history.image.url %>
+      <% else %>
+        画像: 画像なし
+      <% end %>
     </div>
     <div>
       支払先: <%= @history.payee %>
